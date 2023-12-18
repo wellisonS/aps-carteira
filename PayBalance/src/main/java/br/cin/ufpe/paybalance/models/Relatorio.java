@@ -6,22 +6,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Saldo {
+public class Relatorio {
     @Id
     @GeneratedValue // Função para o ID autoincrementar
     private Long id;
-    private BigDecimal valor = BigDecimal.valueOf(0); // todo usuario começa com o saldo inicial de zero.
-    @Temporal(TemporalType.DATE)
-    private LocalDate data;
-   @OneToOne
-   @JoinColumn(name = "id_usuario")
+    @OneToMany
+    private List<Saldo> listaSaldos;
+    @OneToMany
+    private List<Debito> listaDebitos;
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-}
+ }

@@ -33,8 +33,19 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-   // TODO refatorar esse método
     public Usuario atualizaUsuario (String login, Usuario usuario){
+        var aux = usuarioRepository.findById(login);
+        if (aux.isPresent()){
+            if (usuario.getSenha() != null){
+                aux.get().setSenha(usuario.getSenha());
+            }
+            if (usuario.getNome() != null){
+                aux.get().setNome(usuario.getNome());
+            }
+
+
+
+        }
         return usuarioRepository.save(usuario);
     }
 

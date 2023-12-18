@@ -4,6 +4,7 @@ import br.cin.ufpe.paybalance.models.Usuario;
 import br.cin.ufpe.paybalance.services.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/usuario")
@@ -14,9 +15,11 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
     @PostMapping
-    public ResponseEntity criar(@RequestBody Usuario usuario) {
+    public ResponseEntity criar(@RequestBody Usuario usuario, UriComponentsBuilder builder) {
+
         var aux = usuarioService.cadastroUsuario(usuario);
-        return ResponseEntity.ok(aux);
+        var uri = builder.path("/usuario/{login}").buildAndExpand(usuario.getLogin()).toUri();
+        return ResponseEntity.created(uri).body(aux);
     }
 
     @GetMapping

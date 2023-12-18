@@ -24,4 +24,7 @@ public class Debito {
     @Temporal(TemporalType.DATE)
     private LocalDate data;
     private String titulo;
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 }
